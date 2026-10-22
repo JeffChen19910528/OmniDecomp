@@ -23,13 +23,7 @@
 
 ## 安裝
 
-預先打包的 zip 由 `scripts/package.py` 產生:
-
-| 平台 | 狀態 |
-|---|---|
-| Windows 11 x86-64 | 已建置、測試並做過 smoke test |
-| Linux x86-64(glibc 2.39 以上,例如 Ubuntu 24.04) | 已在 WSL2 建置、測試並做過 smoke test |
-| macOS(Apple silicon、Intel) | **尚未驗證**:兩個目標都通過編譯檢查,但還沒有在 Mac 上實際執行或測試過 |
+`scripts/package.py` 會產生 Windows(x86-64)與 Linux(x86-64,需 glibc 2.39 以上,例如 Ubuntu 24.04)的預先打包 zip。
 
 解壓縮後執行 `omnidecomp --version`。SHA-256 核對、升級、解除安裝與疑難排解請見 [docs/INSTALL.md](docs/INSTALL.md)(英文)。
 

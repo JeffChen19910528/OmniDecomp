@@ -23,13 +23,7 @@ Unsupported formats or architectures fail with a specific error code; nothing is
 
 ## Install
 
-Prebuilt zip packages are produced by `scripts/package.py`:
-
-| Platform | Status |
-|---|---|
-| Windows 11 x86-64 | built, tested and smoke-tested |
-| Linux x86-64 (glibc 2.39+, e.g. Ubuntu 24.04) | built, tested and smoke-tested under WSL2 |
-| macOS (Apple silicon, Intel) | **not verified yet**: both targets pass a compile check, but it has not been run or tested on a Mac |
+Prebuilt zip packages for Windows (x86-64) and Linux (x86-64, glibc 2.39 or newer, e.g. Ubuntu 24.04) are produced by `scripts/package.py`.
 
 Unzip, then run `omnidecomp --version`. Details, verification of the SHA-256, upgrade, uninstall and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).
 
