@@ -1,0 +1,32 @@
+[package]
+name = "omnidecomp-gui"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+name = "omnidecomp_gui"
+path = "src/lib.rs"
+
+[[bin]]
+name = "omnidecomp-gui"
+path = "src/main.rs"
+
+[dependencies]
+omnidecomp-core.workspace = true
+omnidecomp-viewmodel.workspace = true
+eframe.workspace = true
+rfd.workspace = true
+serde_json.workspace = true
+
+# winit needs a window system backend on Linux/BSD; Windows and macOS have exactly one and need no feature.
+[target.'cfg(all(unix, not(target_os = "macos")))'.dependencies]
+eframe = { workspace = true, features = ["x11", "wayland"] }
+
+[dev-dependencies]
+omnidecomp-testsamples.workspace = true
+tempfile.workspace = true
+egui_kittest.workspace = true

@@ -1,0 +1,79 @@
+# Continuous integration. Runs the commands that were run by hand on Windows and on Ubuntu 24.04 (WSL):
+# build, tests, clippy without warnings, then the packaging script with its smoke test.
+# The toolchain is pinned by rust-toolchain.toml; only GitHub's own actions are used.
+#
+# macOS entries are `experimental`: the code was only cross-checked (cargo check for both Apple targets),
+# never linked or run, so a failure there is reported but does not fail the workflow until it has passed once.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1" # weekly longer mutation run
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: never
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-24.04, experimental: false }
+          - { os: windows-2025, experimental: false }
+          - { os: macos-15, experimental: true } # Apple silicon
+          - { os: macos-15-intel, experimental: true } # x86-64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Toolchain
+        run: rustc -vV
+      - name: Build (release, locked)
+        run: cargo build --release --locked
+      - name: Tests
+        run: cargo test --locked
+      - name: Clippy (warnings are errors)
+        run: cargo clippy --all-targets --locked -- -D warnings
+      - name: Package and smoke-test
+        run: python scripts/package.py --skip-build
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.os }}
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS
+          if-no-files-found: error
+
+  # Cheap compile check of the Apple targets from Linux; keeps macOS-only code from rotting between Mac runs.
+  apple-cross-check:
+    name: cargo check (Apple targets)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
+      - run: cargo check --all-targets --locked --target aarch64-apple-darwin
+      - run: cargo check --all-targets --locked --target x86_64-apple-darwin
+
+  longer-mutation-run:
+    name: longer mutation run
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: 30,000 mutations per sample kind, debug build (overflow checks on)
+        env:
+          OMNIDECOMP_FUZZ_ITERS: "30000"
+        run: cargo test --locked -p omnidecomp-app --test robustness

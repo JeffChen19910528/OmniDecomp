@@ -1,0 +1,14 @@
+{
+  "id": "ilspycmd",
+  "name": "ILSpy command line (.NET decompiler)",
+  "version": "1.0.0",
+  "api_version": 1,
+  "min_host_version": "0.1.0",
+  "license": "MIT",
+  "source": "https://github.com/icsharpcode/ILSpy",
+  "description": "Runs the ilspycmd tool from PATH on a .NET assembly and returns C# on stdout.",
+  "kind": "decompiler",
+  "runtimes": ["dotnet"],
+  "command": "ilspycmd",
+  "args": ["{input}"]
+}

@@ -1,0 +1,30 @@
+# Build output
+/target
+# Release packages and checksums produced by scripts/package.py and scripts/sbom.py
+/dist
+
+# Python bytecode from the helper scripts
+__pycache__/
+*.pyc
+
+# Per-user plugin state must never be committed (it holds local paths and hashes)
+plugins.json
+# but the shipped plugin manifests are source
+!/plugins/*/plugin.json
+
+# Local tool and editor files
+/.claude/settings.local.json
+/.claude/scheduled_tasks.lock
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Files used by or generated for Claude Code during development; they stay on disk but are not versioned
+/CLAUDE.md
+/SKILL.md
+/RESUME.md
+/.claude_recovery/
+/.claude/

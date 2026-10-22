@@ -1,0 +1,14 @@
+{
+  "id": "cfr",
+  "name": "CFR (Java decompiler) launcher",
+  "version": "1.0.0",
+  "api_version": 1,
+  "min_host_version": "0.1.0",
+  "license": "MIT",
+  "source": "https://github.com/leibnitz27/cfr",
+  "description": "Runs a 'cfr' launcher from PATH on a .class file and returns Java on stdout.",
+  "kind": "decompiler",
+  "runtimes": ["java"],
+  "command": "cfr",
+  "args": ["{input}"]
+}

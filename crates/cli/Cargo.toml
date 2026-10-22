@@ -1,0 +1,27 @@
+[package]
+name = "omnidecomp-cli"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "omnidecomp"
+path = "src/main.rs"
+
+[dependencies]
+omnidecomp-core.workspace = true
+omnidecomp-app.workspace = true
+omnidecomp-plugins.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+clap.workspace = true
+ctrlc.workspace = true
+
+[dev-dependencies]
+omnidecomp-testsamples.workspace = true
+tempfile.workspace = true
+sha2.workspace = true
+serde_json.workspace = true
