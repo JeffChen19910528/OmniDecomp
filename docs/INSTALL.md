@@ -9,7 +9,7 @@ entry. Everything it writes is listed under "What is stored where" below.
 |---|---|---|
 | Windows 11 x86-64 | `OmniDecomp-<version>-x86_64-pc-windows-msvc.zip` | built, tested and smoke-tested by hand |
 | Linux x86-64 (glibc 2.39 or newer, e.g. Ubuntu 24.04) | `OmniDecomp-<version>-x86_64-unknown-linux-gnu.zip` | built, tested and smoke-tested by hand in Ubuntu 24.04 (WSL2); the GUI window opened under WSLg |
-| macOS, Apple silicon and Intel | `...-aarch64-apple-darwin.zip`, `...-x86_64-apple-darwin.zip` | **not run.** The code compiles for both targets (`cargo check`), but nobody has linked, tested or started it on a Mac. CI builds it on macOS runners as an experiment. |
+| macOS, Apple silicon and Intel | `...-aarch64-apple-darwin.zip`, `...-x86_64-apple-darwin.zip` | **not verified yet.** Both targets pass a compile check (`cargo check`), but it has not been built into a package, run or tested on a Mac, and no macOS package is provided. CI tries it on macOS runners as an experiment. |
 
 Older Linux distributions (glibc below 2.39) cannot run the prebuilt Linux binaries; build from source there
 (`cargo build --release`, Rust 1.99.0, no other tools needed).

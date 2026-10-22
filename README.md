@@ -29,7 +29,7 @@ Prebuilt zip packages are produced by `scripts/package.py`:
 |---|---|
 | Windows 11 x86-64 | built, tested and smoke-tested |
 | Linux x86-64 (glibc 2.39+, e.g. Ubuntu 24.04) | built, tested and smoke-tested under WSL2 |
-| macOS (Apple silicon, Intel) | compiles for both targets; **never run** |
+| macOS (Apple silicon, Intel) | **not verified yet**: both targets pass a compile check, but it has not been run or tested on a Mac |
 
 Unzip, then run `omnidecomp --version`. Details, verification of the SHA-256, upgrade, uninstall and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).
 
